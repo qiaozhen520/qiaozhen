@@ -385,6 +385,7 @@ body{
 
 /* 主体开始 */
 .content{
+  position: relative;
   width: 100%;
 }
 
@@ -428,13 +429,65 @@ body{
   width: 130px;
   height: 30px;
   margin: 10px auto;
+  font-size: 20px;
+  line-height: 30px;
 }
 
 .time span{
   width: 30px;
   height: 30px;
   background-color:#2f3430;
-  
 }
 
+.youxuan{
+  height: 980px;
+  margin-bottom: 20px;
+  background-color: #f10215;
+}
+
+.guangchang{
+  height: 635px;
+  background-color: #999;
+}
+
+.tuijian{
+  height: 1870px;
+  background-color: pink;
+}
+.elevator_list{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: 615px;
+  height: 252px;
+  width: 58px;
+  border: 1px solid rgba(255,255,255,.8);
+  background-color: rgb(255, 255, 255);
+}
+.elevator_list a{
+  display: block;
+  width: 58px;
+  height: 38px;
+  line-height: 19px;
+  font-size: 14px;
+  color: #333;
+  padding: 10px 0;
+  transition: color .2s ease;
+  text-align: center;
+}
+
+.elevator_fix{
+  position: fixed;
+  top: 75px;
+  animation: eleShow .5s ease;
+}
+
+@keyframes eleShow {
+  0%{
+    top:0;
+  }
+  100%{
+    top:75px;
+  }
+}
 /* 主体结束 */

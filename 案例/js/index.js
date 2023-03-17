@@ -137,13 +137,87 @@ next1.addEventListener("click",function(){
 let hour = document.querySelector(".hour")
 let minute = document.querySelector(".minute")
 let second = document.querySelector(".second")
-function Countdown(){
-  let time = new Date();
-  let h = time.getHours;
-  let m = time.getMinutes;
-  let s = time.getSeconds;
-
- 
+var now = +new Date('2023-03-17 22:00:00')
+function getDaojishi(time) {
+  var date = +new Date(); //返回当前时间总毫秒数
+  var times = (now - date) / 1000; //剩余时间总秒数
+  var t = parseInt(times / 60 / 60 / 24); //天
+  t = t < 10 ? '0' + t : t;
+  var h = parseInt(times / 60 / 60 % 24); //小时
+  h = h < 10 ? '0' + h : h;
+  hour.innerHTML = h;
+  var m = parseInt(times / 60 % 60); //分钟
+  m = m < 10 ? '0' + m : m;
+  minute.innerHTML = m;
+  var s = parseInt(times % 60); //秒
+  s = s < 10 ? '0' + s : s;
+  second.innerHTML = s;
+  // return t + '天' + h + '小时' + m + '分钟' + s + '秒'
 }
-Countdown();
+getDaojishi();
+setInterval(getDaojishi,1000) 
+
+
+
+
+// 实现楼层的定位切换====================================
+let Shortcut = document.querySelector(".shortcut")
+let Header = document.querySelector(".header")
+let Bannerr = document.querySelector(".banner")
+let elevator_list = document.querySelector(".elevator_list")
+
+
+
+
+// 实现楼层滚动变色效果
+let items = document.querySelectorAll(".content .item");
+let as = document.querySelectorAll(".elevator_list a")
+let elevatorArr = [];
+let base = Header.offsetHeight + Bannerr.offsetHeight + Shortcut.offsetHeight
+for(let i= 0; i < items.length;i++){
+  base = base + items[i].offsetHeight
+  elevatorArr.push(base)
+}
+
+function clearColor(){
+  for(let i = 0 ; i < as.length;i++){
+    as[i].style.color = ''
+  }
+}
+
+
+
+
+document.onscroll = function(){
+  let top = document.documentElement.scrollTop;
+  // console.log(top);
+  // 获取header的高度
+  let ShortcutHight = Shortcut.offsetHeight;
+  let HeaderHight = Header.offsetHeight;
+  let BannerrHight = Bannerr.offsetHeight;
+
+  // 当滚动条滚动到一定程度时，将楼层的定位切换为固定定位
+  if(top > ShortcutHight + HeaderHight +BannerrHight){
+    elevator_list.className = "elevator_list elevator_fix"
+  }else{
+    elevator_list.className = "elevator_list"
+  }
+
+  if(top < Header.offsetHeight + Bannerr.offsetHeight + Shortcut.offsetHeight){
+    clearColor();
+  }else if(top > Header.offsetHeight + Bannerr.offsetHeight + Shortcut.offsetHeight && top < elevatorArr[0]){
+    clearColor();
+    as[0].style.color = "red"
+  }else if(top>elevatorArr[0] && top < elevatorArr[1]){
+    clearColor();
+    as[1].style.color = "red"
+  }else if(top>elevatorArr[1] && top < elevatorArr[2]){
+    clearColor();
+    as[2].style.color = "red"
+  }else if(top>elevatorArr[2]){
+    clearColor();
+    as[3].style.color = "red"
+  }
+}
+
 
